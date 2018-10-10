@@ -1,12 +1,81 @@
 <template>
-  <div class="search">
-    <input  class="search-input" type="text" placeholder="输入城市名或拼音" />
+  <div>
+    <div class="search">
+      <input  class="search-input" type="text" placeholder="输入城市名或拼音"  v-model="keyword"/>
+    </div>
+    <div
+      class="search-content"
+      ref="search"
+      v-show ="keyword"
+    >
+      <ul>
+        <li
+          class="search-item border-bottom"
+          v-for="item of list"
+          :key="item.id"
+          @click="handleCityClick(item.name)"
+        >
+          {{item.name}}
+        </li>
+        <li class="search-item border-bottom" v-show="hasNoData">
+          没有找到匹配数据
+        </li>
+      </ul>
+    </div>
   </div>
+
 </template>
 
 <script>
+  import Bscroll from 'better-scroll'
     export default {
-        name: "CitySearch"
+        name: "CitySearch",
+        props:{         //父子传值
+          cities:Object
+        },
+        data (){
+          return {
+            keyword: '',
+            timer:null,
+            list:[]
+          }
+        },
+      mounted () {
+        this.scroll = new Bscroll(this.$refs.search)
+      },
+      computed: {     //计算属性
+        hasNoData () {
+          return !this.list.length
+        }
+      },
+      methods: {
+        handleCityClick (city){
+          this.$store.dispatch('changeCity',city);
+          this.$router.push('/')
+        }
+      },
+      watch:{     //监听属性
+        keyword(){
+          if(this.timer){
+            clearTimeout(this.timer)
+          }
+          if(!this.keyword){
+            this.list =[];
+            return
+          }
+          this.timer=setTimeout(() =>{
+            const  result =[];
+            for (let i in this.cities){
+              this.cities[i].forEach(( value)=>{
+                if(value.spell.indexOf(this.keyword) > -1 ||value.name.indexOf(this.keyword) > -1){
+                  result.push(value)
+                }
+              })
+            }
+            this.list =result
+          },100)
+        }
+      }
     }
 </script>
 

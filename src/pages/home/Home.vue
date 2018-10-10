@@ -1,6 +1,6 @@
 <template>
     <div>
-      <home-header :city="city"></home-header>
+      <home-header></home-header>
       <home-swiper :list="swiperList"></home-swiper>
       <home-icons :list="iconList"></home-icons>
       <home-recommed :list="recommendList"></home-recommed>
@@ -9,17 +9,16 @@
 </template>
 
 <script>
-  import  HomeHeader from './compontents/Header'
-  import  HomeSwiper from './compontents/Swiper'
-  import  HomeIcons from './compontents/Icons'
-  import  HomeRecommed from './compontents/Recommed'
-  import  HomeWeekend from './compontents/Weekend'
+  import  HomeHeader from './components/Header'
+  import  HomeSwiper from './components/Swiper'
+  import  HomeIcons from './components/Icons'
+  import  HomeRecommed from './components/Recommed'
+  import  HomeWeekend from './components/Weekend'
   import axios from 'axios'
   export default {
     name: "Home",
     data () {
       return {
-        city: '',
         swiperList: [],
         iconList : [],
         recommendList: [],
@@ -43,7 +42,6 @@
         console.log(res);
         if(res.ret && res.data){
           const data = res.data;
-          this.city = data.city;
           this.swiperList = data.swiperList;
           this.iconList = data.iconList;
           this.recommendList =  data.recommendList;
