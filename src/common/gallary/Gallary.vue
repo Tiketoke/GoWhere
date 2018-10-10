@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container" @click="handleBannerClick">
       <div class="wrapper">
         <swiper :options="swiperOptions">
           <!-- slides -->
@@ -38,6 +38,11 @@
             }
           }
         },
+      methods:{
+        handleBannerClick(){
+          this.$emit('close')
+        }
+      }
     }
 </script>
 <style lang="stylus" scoped>

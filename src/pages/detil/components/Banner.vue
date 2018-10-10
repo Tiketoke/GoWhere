@@ -7,7 +7,11 @@
           <div class="banner-number"> <span class="iconfont banner-icon">&#xe700;</span>39</div>
         </div>
       </div>
-      <common-gallary :imgs="imgs" v-show="showGallary"></common-gallary>
+      <common-gallary
+        :imgs="imgs"
+        v-show="showGallary"
+        @close="handleGallaryClose"
+      ></common-gallary>
     </div>
 </template>
 
@@ -25,6 +29,9 @@
         methods:{
           handleBannerClick(){
             this.showGallary = true
+          },
+          handleGallaryClose(){
+            this.showGallary = false
           }
         },
         components:{
