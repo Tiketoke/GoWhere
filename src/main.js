@@ -24,3 +24,7 @@ new Vue({
   components: { App },
   template: '<App/>'
 })
+
+
+//想要通过IP访问，webpack-dev-server后面加 --host 0.0.0.0
+// package.json 中修改
