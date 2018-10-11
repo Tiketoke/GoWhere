@@ -18,5 +18,9 @@ export default new Router({
     path: '/detil/:id',
     name: 'Detil',
     component: Detil
-  }]
+  }],
+  scrollBehavior (to, from, savedPosition) {
+    return { x: 0, y: 0 }
+  }
+
 })
